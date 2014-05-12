@@ -3,7 +3,7 @@ OpenRouter-APP
 
 Some extend packages for OpenWrt
 
-Add "src-git openrouter-app git://github.com/openrouter/openrouter-app.git" to feeds.conf.default.
+Add "src-git openrouter-app git@github.com:live-8/OpenRouter-GetHUB.git" to feeds.conf.default.
 
 ```bash
 ./scripts/feeds update -a

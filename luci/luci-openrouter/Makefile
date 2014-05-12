@@ -81,10 +81,13 @@ $(eval $(call application,DNS-Filter,DNS-Filter configuration module,\
 	 +PACKAGE_luci-app-DNS-Filter:libc +bash +screen +wget))
 
 $(eval $(call application,webcam,webcam configuration module,\
-	 +PACKAGE_luci-webcam:webcam +mjpg-streamer))
+	 +PACKAGE_luci-app-webcam:webcam +mjpg-streamer))
 
-$(eval $(call application,qos_gargoyle,qos_gargoyle configuration module,\
-        +PACKAGE_luci-app-qos_gargoyle:qos-gargoyle))
+$(eval $(call application,xunlei,xunlei configuration module,\
+	 +PACKAGE_luci-app-xunlei:libc +wget))
+
+$(eval $(call application,qos-gargoyle,qos-gargoyle configuration module,\
+	+PACKAGE_luci-app-qos_gargoyle:qos-gargoyle))
 
 ### Compile ###
 PKG_CONFIG_DEPENDS=$(patsubst %,CONFIG_PACKAGE_%,$(LUCI_BUILD_PACKAGES))
