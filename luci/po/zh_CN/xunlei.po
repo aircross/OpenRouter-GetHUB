@@ -1,0 +1,77 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "Xware"
+msgstr "远程迅雷程序状态："
+
+msgid "xunlei"
+msgstr "远程迅雷下载"
+
+msgid "Operating status:"
+msgstr "运行状态："
+
+msgid "Thunder remote download is running ..."
+msgstr "迅雷远程下载 正在运行..."
+
+msgid "Normal state"
+msgstr "状态正常"
+
+msgid "[Thunder remotely download has not started]"
+msgstr "[迅雷远程下载 尚未启动]"
+
+msgid "Xware Set"
+msgstr "Xware 设置"
+
+msgid "Enable remote download Thunder"
+msgstr "启用 迅雷远程下载"
+
+msgid "Device mount point for thunder"
+msgstr "迅雷程序，请放在“挂载点”/xunlei 目录下。"
+
+msgid "Upgrade Thunder Remote Download"
+msgstr "升级远程迅雷到最新"
+
+msgid "The latest version:"
+msgstr "第一次需联网下载迅雷程序！以后如果升级需删除硬盘中的迅雷文件夹，官网最新版本为："
+
+msgid "Custom version"
+msgstr "自定义版本"
+
+msgid "Custom Thunder remotely download version."
+msgstr "自定义迅雷远程下载版本。"
+
+msgid "The version number"
+msgstr "版本号"
+
+msgid "Xware version:"
+msgstr "Xware硬件平台："
+
+msgid "Select the types of router based on different CPU"
+msgstr "默认是ar71xx系列版本，其他型号请根据不同路由CPU选择。"
+
+msgid "Get started information"
+msgstr "获取启动信息"
+
+msgid "Thunder Remote download page"
+msgstr "迅雷远程下载页面"
+
+msgid "The activation code pages can be filled into the binding."
+msgstr "将激活码填进网页即可绑定。"
+
+msgid "BBS Xunlei"
+msgstr "迅雷论坛"
+
+msgid "Mount point configuration"
+msgstr "挂载点配置"
+
+msgid "Mount point configuration (under normal circumstances just fill in your mount point directory can)"
+msgstr "挂载点配置(一般情况下只需填写你的挂载点目录即可)"
+
+msgid "Xware configuration"
+msgstr "Xware 配置"
+
+msgid "Comment by ";""
+msgstr "注释用“ ; ”"
+
+msgid "Download Configuration"
+msgstr "下载配置"
