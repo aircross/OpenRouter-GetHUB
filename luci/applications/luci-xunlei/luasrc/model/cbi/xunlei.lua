@@ -5,7 +5,7 @@ local running=(luci.sys.call("pidof EmbedThunderManager > /dev/null") == 0)
 local button=""
 local xunleiinfo=""
 local tblXLInfo={}
-local detailInfo = "启动后会看到类似如下信息：<br />[ 0, 1, 1, 0, “7DHS94”,1, “201_2.1.3.121”, “shdixang”, 1 ]<br />其中有用的几项为：<br />第一项： 0表示返回结果成功；<br />第二项： 1表示检测网络正常，0表示检测网络异常；<br />第四项： 1表示已绑定成功，0表示未绑定；<br />第五项： 未绑定的情况下，为绑定的需要的激活码；<br />第六项： 1表示磁盘挂载检测成功，0表示磁盘挂载检测失败。"
+local detailInfo = "启动后会看到类似如下信息：<br /><br />[ 0, 1, 1, 0, “7DHS94”,1, “201_2.1.3.121”, “shdixang”, 1 ]<br /><br />其中有用的几项为：<br /><br />第一项： 0表示返回结果成功；<br /><br />第二项： 1表示检测网络正常，0表示检测网络异常；<br /><br />第四项： 1表示已绑定成功，0表示未绑定；<br /><br />第五项： 未绑定的情况下，为绑定的需要的激活码；<br /><br />第六项： 1表示磁盘挂载检测成功，0表示磁盘挂载检测失败。"
 
 if running then
 	xunleiinfo = luci.sys.exec("wget http://localhost:9000/getsysinfo -O - 2>/dev/null")
@@ -14,29 +14,29 @@ if running then
 	m = Map("xunlei", translate("Xware"), translate("迅雷远程下载 正在运行...") .. button)
 	string.gsub(string.sub(xunleiinfo, 2, -2),'[^,]+',function(w) table.insert(tblXLInfo, w) end)
 	
-	detailInfo = [[启动信息：]] .. xunleiinfo .. [[</p>]]
+	detailInfo = [[<p>检测到本机远程迅雷运行状态信息]].. xunleiinfo ..[[</p>]]
 	if tonumber(tblXLInfo[1]) == 0 then
-	  detailInfo = detailInfo .. [[<p>状态正常</p>]]
+	  detailInfo = detailInfo .. [[<p></p><p style="font-size:10pt;color:blue">状态正常</p>]]
 	else
-	  detailInfo = detailInfo .. [[<p style="color:red">执行异常</p>]]
+	  detailInfo = detailInfo .. [[<p style="font-size:10pt;color:red">执行异常</p>]]
 	end
 	
 	if tonumber(tblXLInfo[2]) == 0 then
-	  detailInfo = detailInfo .. [[<p style="color:red">网络异常</p>]]
+	  detailInfo = detailInfo .. [[<p style="font-size:10pt;color:red">网络异常</p>]]
 	else
-	  detailInfo = detailInfo .. [[<p>网络正常</p>]]
+	  detailInfo = detailInfo .. [[<p style="font-size:10pt;color:blue">网络正常</p>]]
 	end
 	
 	if tonumber(tblXLInfo[4]) == 0 then
-	  detailInfo = detailInfo .. [[<p>未绑定]].. [[&nbsp;&nbsp;激活码：]].. tblXLInfo[5] ..[[</p>]]	  
+	  detailInfo = detailInfo .. [[<p style="font-size:10pt;color:red">激活码未绑定]].. [[&nbsp;&nbsp;本机激活码：]].. tblXLInfo[5] ..[[</p>]]	  
 	else
-	  detailInfo = detailInfo .. [[<p>已绑定</p>]]
+	  detailInfo = detailInfo .. [[<p style="font-size:10pt;color:blue">激活码已绑定</p>]]
 	end
 
 	if tonumber(tblXLInfo[6]) == 0 then
-	  detailInfo = detailInfo .. [[<p style="color:red">磁盘挂载检测失败</p>]]
+	  detailInfo = detailInfo .. [[<p style="font-size:10pt;color:red">挂载检测失败</p>]]
 	else
-	  detailInfo = detailInfo .. [[<p>磁盘挂载检测成功</p>]]
+	  detailInfo = detailInfo .. [[<p style="font-size:10pt;color:blue">挂载检测成功</p>]]
 	end
 else
 	m = Map("xunlei", translate("Xware"), translate("[Thunder remotely download has not started]"))
@@ -84,7 +84,7 @@ ver:value("1.0.13", translate("1.0.13"))
 ver:value("1.0.14", translate("1.0.14"))
 ver:value("1.0.15", translate("1.0.15"))
 
-xwareup = s:taboption("basic", Value, "xware", translate("Xware version:"),translate("Select the types of router based on different CPU"))
+xwareup = s:taboption("basic", Value, "xware", translate("Xware version:"),translate("请根据自己路由CPU型号选择不同的类型的软件。"))
 xwareup.rmempty = false
 xwareup:value("Xware_mipseb_32_uclibc.tar.gz", translate("Xware_mipseb_32_uclibc.tar.gz"))
 xwareup:value("Xware_mipsel_32_uclibc.tar.gz", translate("Xware_mipsel_32_uclibc.tar.gz"))
