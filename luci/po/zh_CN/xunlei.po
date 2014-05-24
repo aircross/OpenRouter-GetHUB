@@ -69,7 +69,7 @@ msgid "Upgrade Thunder Remote Download"
 msgstr "升级远程迅雷到最新"
 
 msgid "The latest version:"
-msgstr "第一次需联网下载迅雷程序！以后如果升级需删除硬盘中的迅雷文件夹，官网最新版本为："
+msgstr "第一次需联网下载迅雷程序！如果升级需删除硬盘中的xunlei件夹，检测到官方最新版为："
 
 msgid "Custom version"
 msgstr "自定义版本"

@@ -12,6 +12,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.6\n"
+
+msgid "Tutorials"
+msgstr "使用教材"
+
+msgid "xunlei"
+msgstr "远程迅雷下载"
+
+msgid "Update"
+msgstr "固件更新"
+
+msgid "Update Address"
+msgstr "固件下载"
+
 msgid "task name desc"
 msgstr "任务名"
 
@@ -472,7 +485,7 @@ msgstr "复位/刷机"
 msgid "update firmware"
 msgstr "教材/固件"
 
-msgid "Backup / Restore"
+msgid "Update"
 msgstr "备份/恢复"
 
 msgid "Backup file list"
@@ -1019,7 +1032,7 @@ msgid "Frame Bursting"
 msgstr "帧突发"
 
 msgid "Free"
-msgstr "空闲数"
+msgstr "内存状态"
 
 msgid "Free space"
 msgstr "空闲空间"
@@ -1850,7 +1863,7 @@ msgid "Pkts."
 msgstr "数据包"
 
 msgid "Please enter your username and password."
-msgstr "请输入用户名和密码"
+msgstr "请输入用户名和密码,默认用户名为root密码admin，出于安全考虑建议修改默认密码！"
 
 msgid "Please wait: Device rebooting..."
 msgstr "请稍等：设备重启中..."
@@ -2010,7 +2023,7 @@ msgid "Rebooting..."
 msgstr "重启中..."
 
 msgid "Reboots the operating system of your device"
-msgstr "重启OpenWrt"
+msgstr "重启路由器"
 
 msgid "Receive"
 msgstr "接收"
@@ -2317,7 +2330,7 @@ msgid "N-WAN"
 msgstr "多拨路由表"
 
 msgid "macvlan"
-msgstr "单线多拨/多线"
+msgstr "单线多拨"
 
 msgid "IPv6 RA and DHCPv6"
 msgstr "IPv6-DHCP-"

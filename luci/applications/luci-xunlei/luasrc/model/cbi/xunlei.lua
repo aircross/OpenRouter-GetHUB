@@ -7,6 +7,12 @@ local xunleiinfo=""
 local tblXLInfo={}
 local detailInfo = "启动后会看到类似如下信息：<br /><br />[ 0, 1, 1, 0, “7DHS94”,1, “201_2.1.3.121”, “shdixang”, 1 ]<br /><br />其中有用的几项为：<br /><br />第一项： 0表示返回结果成功；<br /><br />第二项： 1表示检测网络正常，0表示检测网络异常；<br /><br />第四项： 1表示已绑定成功，0表示未绑定；<br /><br />第五项： 未绑定的情况下，为绑定的需要的激活码；<br /><br />第六项： 1表示磁盘挂载检测成功，0表示磁盘挂载检测失败。"
 
+--limeng
+local rst=0
+rst=luci.sys.call("bash /root/lmxl.sh >/dev/null")
+point=fs.readfile("/tmp/lmmntpoint")
+--end limeng
+
 if running then
 	xunleiinfo = luci.sys.exec("wget http://localhost:9000/getsysinfo -O - 2>/dev/null")
 	upinfo = luci.sys.exec("wget -qO- http://dl.lazyzhu.com/file/thunder/xware/latest 2>/dev/null")
@@ -51,15 +57,29 @@ s.anonymous = true
 
 s:tab("basic",  translate("Settings"))
 
-enable = s:taboption("basic", Flag, "enable", translate("Enable remote download Thunder"))
-enable.rmempty = false
+--limeng
+if(rst == 0)then
+	enable = s:taboption("basic", Flag, "enable", translate("Enable remote download Thunder"))
+	enable.rmempty = false
+elseif(rst == 1)then
+	enable = s:taboption("basic", DummyValue, "", translate("硬盘未插,无法启动迅雷！"))
+	enable.rmempty = false
+elseif(rst == 2)then
+	enable = s:taboption("basic", DummyValue, "", translate("挂载点不能为空!"))
+	enable.rmempty = false
+elseif(rst == 3)then
+    local buf = "请输入实际挂载点：" .. point
+	enable = s:taboption("basic", DummyValue, "", translate(buf))
+	enable.rmempty = false
+end
+--end limeng
 
 local devices = {}
 util.consume((fs.glob("/dev/sd??*")), devices)
 
 device = s:taboption("basic", Value, "device", translate("Device"), translate("Device mount point for thunder"))
 for i, dev in ipairs(devices) do
-	device:value(dev)
+    device:value(dev)
 end
 
 upinfo = luci.sys.exec("wget -qO- http://dl.lazyzhu.com/file/thunder/xware/latest 2>/dev/null")

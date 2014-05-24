@@ -10,7 +10,13 @@ start() {
 
 	device=$(uci get xunlei.config.device)
 	mountpoint="`mount | grep "$device" | awk '{print $3}'`"
-
+       
+        #limeng
+        #[ -n "$device" ] || exit 1
+        #grep "$device" /etc/mtab
+        bash /root/lmxl.sh
+        [ "$?" == "0" ] || exit 2
+        
 	rm -f /tmp/etc/thunder_mounts.cfg
 	rm -f /tmp/etc/etm.cfg
 	rm -f /tmp/etc/download.cfg
@@ -42,3 +48,4 @@ restart() {
 	sleep 1
 	start
 }
+
