@@ -86,11 +86,13 @@ $(eval $(call application,webcam,webcam configuration module,\
 $(eval $(call application,xunlei,xunlei configuration module,\
 	 +PACKAGE_luci-app-xunlei:libc +wget))
 
-$(eval $(call application,shadowsocks,shadowsocks-libev configuration module,\
-	 +PACKAGE_luci-shadowsocks:shadowsocks-libev +libopenssl +shadowsocks-libev))
+$(eval $(call application,shadowsocks-libev,shadowsocks-libev configuration module,\
+	 +PACKAGE_luci-app-shadowsocks:shadowsocks-libev \
+	+PACKAGE_luci-app-shadowsocks:libopenssl))
 
 $(eval $(call application,redsocks2,redsocks2 configuration module,\
-	 +PACKAGE_luci-redsocks2:redsocks2 +libevent2 +redsocks2))
+	 +PACKAGE_luci-app-redsocks2:redsocks2 \
+	+PACKAGE_luci-app-redsocks2:libevent2))
 
 $(eval $(call application,qos_gargoyle,qos-gargoyle configuration module,\
 	+PACKAGE_luci-app-qos_gargoyle:qos-gargoyle))
