@@ -86,7 +86,7 @@ $(eval $(call application,webcam,webcam configuration module,\
 $(eval $(call application,xunlei,xunlei configuration module,\
 	 +PACKAGE_luci-app-xunlei:libc +wget))
 
-$(eval $(call application,shadowsocks-libev,shadowsocks-libev configuration module,\
+$(eval $(call application,shadowsocks,shadowsocks configuration module,\
 	 +PACKAGE_luci-app-shadowsocks:shadowsocks-libev \
 	+PACKAGE_luci-app-shadowsocks:libopenssl))
 
