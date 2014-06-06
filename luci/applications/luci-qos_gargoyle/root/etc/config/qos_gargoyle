@@ -1,4 +1,7 @@
 
+config qos_gargoyle 'config'
+	option enabled '0'
+
 config upload 'upload'
 	option default_class 'uclass_3'
 	option total_bandwidth '512'

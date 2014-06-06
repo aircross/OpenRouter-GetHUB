@@ -226,3 +226,12 @@ msgstr "下载规则"
 
 msgid "download_rule_"
 msgstr "下载规则"
+
+msgid "Qos Control"
+msgstr "Qos控制"
+
+msgid "Qos_Switch"
+msgstr "Qos开关"
+
+msgid "Qos_Switch is designed for switching on/off Qos_Gargoyle."
+msgstr "Qos开关是用来切换石像鬼QOS开关状态的。"
