@@ -87,10 +87,10 @@ $(eval $(call application,xunlei,xunlei configuration module,\
 	 +PACKAGE_luci-app-xunlei:libc +wget))
 
 $(eval $(call application,shadowsocks,shadowsocks-libev configuration module,\
-	 +PACKAGE_luci-shadowsocks:shadowsocks-libev +libopenssl))
+	 +PACKAGE_luci-shadowsocks:shadowsocks-libev +libopenssl +shadowsocks-libev))
 
 $(eval $(call application,redsocks2,redsocks2 configuration module,\
-	 +PACKAGE_luci-redsocks2:redsocks2 +libevent2))
+	 +PACKAGE_luci-redsocks2:redsocks2 +libevent2 +redsocks2))
 
 $(eval $(call application,qos_gargoyle,qos-gargoyle configuration module,\
 	+PACKAGE_luci-app-qos_gargoyle:qos-gargoyle))
