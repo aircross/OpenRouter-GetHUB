@@ -91,7 +91,7 @@ $(eval $(call application,pdnsd,pdnsd configuration module,\
 
 $(eval $(call application,shadowsocks,shadowsocks configuration module,\
 	 +PACKAGE_luci-app-shadowsocks:shadowsocks-libev \
-	+PACKAGE_luci-app-shadowsocks:libopenssl +shadowsocks-libev))
+	+PACKAGE_luci-app-shadowsocks:libopenssl +shadowsocks-libev +libpolarssl))
 
 $(eval $(call application,redsocks2,redsocks2 configuration module,\
 	 +PACKAGE_luci-app-redsocks2:redsocks2 \
