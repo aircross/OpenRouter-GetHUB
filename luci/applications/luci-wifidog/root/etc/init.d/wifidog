@@ -1,0 +1,82 @@
+#!/bin/sh /etc/rc.common
+
+START=65
+
+# 获取状态 杀进程
+EXTRA_COMMANDS="status"
+EXTRA_HELP="        status Print the status of the service"
+
+
+
+# 导入CONFIG配置参数并写入 /etc/wifidog.conf 先杀进程然后检测wifidog是否开启
+config_load()
+{
+				/usr/bin/wifidog-init stop
+				sleep 3
+	      /usr/bin/wifidog-init start
+        rm -f /etc/wifidog.conf
+        gateway_id=$(uci get wifidog.@wifidog[0].gateway_id)
+        gateway_interface=$(uci get wifidog.@wifidog[0].gateway_interface) 
+        gateway_eninterface=$(uci get wifidog.@wifidog[0].gateway_eninterface)
+        gateway_hostname=$(uci get wifidog.@wifidog[0].gateway_hostname) 
+        gateway_httpport=$(uci get wifidog.@wifidog[0].gateway_httpport) 
+        gateway_path=$(uci get wifidog.@wifidog[0].gateway_path) 
+        gateway_connmax=$(uci get wifidog.@wifidog[0].gateway_connmax) 
+        
+       
+  
+      
+# 将数值赋给WIFIDOG官方的配置参数               
+echo "
+GatewayID $gateway_id
+GatewayInterface $gateway_interface
+ExternalInterface $gateway_eninterface
+AuthServer {
+     Hostname $gateway_hostname
+#    SSLAvailable no
+     HTTPPort $gateway_httpport
+     Path $gateway_path
+    }
+
+CheckInterval 60
+ClientTimeout 5
+HTTPDMaxConn $gateway_connmax
+
+FirewallRuleSet validating-users {
+    FirewallRule allow to 0.0.0.0/0
+}
+
+FirewallRuleSet known-users {
+    FirewallRule allow to 0.0.0.0/0
+}
+
+FirewallRuleSet unknown-users {
+    FirewallRule allow udp port 53
+    FirewallRule allow tcp port 53
+    FirewallRule allow udp port 67
+    FirewallRule allow tcp port 67
+}
+
+FirewallRuleSet locked-users {
+    FirewallRule block to 0.0.0.0/0
+}
+" >> /etc/wifidog.conf
+
+}
+
+
+
+# 官方的启动进程命令 利用此处 先导入参数然后进行开启或禁用等    
+start() {	
+	config_load
+	#/usr/bin/wifidog-init start
+}
+
+stop() {
+	/usr/bin/wifidog-init stop
+}
+
+status() {
+	/usr/bin/wifidog-init status
+}
+

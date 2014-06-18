@@ -1,5 +1,5 @@
 --[[
-RA-MOD
+卓微电子
 ]]--
 
 local fs = require "nixio.fs"
@@ -15,6 +15,119 @@ end
 server = m:section(TypedSection, "shadowsocks", translate("Server Setting"))
 server.anonymous = true
 
+server:tab("general", translate("General Settings"))
+server:tab("Proxy", translate("SOCKS5 Proxy"))
+
+remote_server_setup = server:taboption("general", Flag, "remote_enable", translate("Server Enable"))
+remote_server_setup.default = false
+
+--remote_server_dis = server:taboption("general", MultiValue, "shadowsocks", translate("Server Setting:"))--dis
+remote_server = server:taboption("general", Value, "remote_server", translate("Server Address"))
+remote_server.datatype = ipaddr
+remote_server.optional = false
+
+remote_port = server:taboption("general", Value, "remote_port", translate("Server Port"))
+remote_port.default = 0--add
+remote_port.datatype = "range(0,65535)"
+remote_port.optional = false
+
+password = server:taboption("general", Value, "password", translate("Password"))
+password.password = true
+
+cipher = server:taboption("general", ListValue, "cipher", translate("Cipher Method"))
+cipher:value("table")
+cipher:value("rc4")
+cipher:value("aes-128-cfb")
+cipher:value("aes-192-cfb")
+cipher:value("aes-256-cfb")
+cipher:value("bf-cfb")
+cipher:value("cast5-cfb")
+cipher:value("des-cfb")
+cipher:value("camellia-128-cfb")
+cipher:value("camellia-192-cfb")
+cipher:value("camellia-256-cfb")
+cipher:value("idea-cfb")
+cipher:value("rc2-cfb")
+cipher:value("seed-cfb")
+
+
+--redir = server:taboption("general", MultiValue, "shadowsocks", translate("Transparent Proxy"))--dis
+--redir.anonymous = true
+
+redir_enable = server:taboption("general", Flag, "redir_enabled", translate("Transparent Proxy"))
+redir_enable.default = false
+
+redir_port = server:taboption("general", Value, "redir_port", translate("Transparent Proxy Local Port"))
+redir_port.default = 0--add
+redir_port.datatype = "range(0,65535)"
+redir_port.optional = false
+
+--debug start
+--[[
+blacklist_enable = server:taboption("general", Flag, "blacklist_enabled", translate("Bypass Lan IP"))
+blacklist_enable.default = false
+
+blacklist = server:taboption("general", TextValue, "blacklist", " ", "")
+blacklist.template = "cbi/tvalue"
+blacklist.size = 30
+blacklist.rows = 10
+blacklist.wrap = "off"
+blacklist:depends("blacklist_enabled", 1)
+
+function blacklist.cfgvalue(self, section)
+	return fs.readfile("/etc/ipset/blacklist") or ""
+end
+function blacklist.write(self, section, value)
+	if value then
+		value = value:gsub("\r\n?", "\n")
+		fs.writefile("/tmp/blacklist", value)
+		fs.mkdirr("/etc/ipset")
+		if (fs.access("/etc/ipset/blacklist") ~= true or luci.sys.call("cmp -s /tmp/blacklist /etc/ipset/blacklist") == 1) then
+			fs.writefile("/etc/ipset/blacklist", value)
+		end
+		fs.remove("/tmp/blacklist")
+	end
+end
+
+whitelist_enable = server:taboption("general", Flag, "whitelist_enabled", translate("Bypass IP Whitelist"))
+whitelist_enable.default = false
+
+whitelist = server:taboption("general",TextValue, "whitelist", " ", "")
+whitelist.template = "cbi/tvalue"
+whitelist.size = 30
+whitelist.rows = 10
+whitelist.wrap = "off"
+whitelist:depends("whitelist_enabled", 1)
+
+function whitelist.cfgvalue(self, section)
+	return fs.readfile("/etc/ipset/whitelist") or ""
+end
+function whitelist.write(self, section, value)
+	if value then
+		value = value:gsub("\r\n?", "\n")
+		fs.writefile("/tmp/whitelist", value)
+		fs.mkdirr("/etc/ipset")
+		if (fs.access("/etc/ipset/whitelist") ~= true or luci.sys.call("cmp -s /tmp/whitelist /etc/ipset/whitelist") == 1) then
+			fs.writefile("/etc/ipset/whitelist", value)
+		end
+		fs.remove("/tmp/whitelist")
+	end
+end
+--]]
+--debugend
+
+--socks5 = server:taboption("Proxy", MultiValue, "shadowsocks", translate("SOCKS5 Proxy:"))--dis
+--socks5.anonymous = true
+
+switch = server:taboption("Proxy", Flag, "enabled", translate("SOCKS5 Proxy"))
+switch.rmempty = false
+
+local_port = server:taboption("Proxy", Value, "local_port", translate("Local Port"))
+local_port.datatype = "range(0,65535)"
+local_port.optional = false
+
+
+--[[
 remote_server = server:option(Value, "remote_server", translate("Server Address"))
 remote_server.datatype = ipaddr
 remote_server.optional = false
@@ -111,6 +224,7 @@ function whitelist.write(self, section, value)
 		fs.remove("/tmp/whitelist")
 	end
 end
+]]--
 
 return m
 

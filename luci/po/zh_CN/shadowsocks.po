@@ -10,6 +10,10 @@ msgstr "忽略内网IP列表"
 msgid "Cipher Method"
 msgstr "加密方式"
 
+
+msgid "Server Enable"
+msgstr "启动挖墙"
+
 msgid "Enable"
 msgstr "启动"
 
@@ -38,10 +42,10 @@ msgid "Transparent Proxy Local Port"
 msgstr "透明代理本地端口"
 
 msgid "shadowsocks"
-msgstr "shadowsocks"
+msgstr "挖墙/去视频广告"
 
 msgid "shadowsocks is not running"
-msgstr "shadowsocks 未运行"
+msgstr "[挖墙程序 尚未启动]"
 
 msgid "shadowsocks is running"
-msgstr "shadowsocks 运行中"
+msgstr "[挖墙程序 已经启动 运行中.............]"

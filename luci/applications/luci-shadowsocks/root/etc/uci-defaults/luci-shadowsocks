@@ -3,7 +3,7 @@
 uci -q batch <<-EOF >/dev/null
 	delete ucitrack.@shadowsocks[-1]
 	add ucitrack shadowsocks
-	set ucitrack.@shadowsocks[-1].init=shadowsocks
+	set ucitrack.@shadowsocks[-1].init=shadowsocks_update
 	commit ucitrack
 	delete firewall.shadowsocks
 	set firewall.shadowsocks=include

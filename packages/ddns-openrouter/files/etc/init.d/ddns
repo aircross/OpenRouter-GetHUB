@@ -1,10 +1,9 @@
 #!/bin/sh /etc/rc.common
 
-START=95
+START=94
 
 start () {
-   touch /tmp/limeng_ddns_start.txt
-   sh /usr/lib/ddns/dynamic_dns_updater.sh start 
+  sh /usr/lib/ddns/dynamic_dns_updater.sh start 
 }
 
 stop () {

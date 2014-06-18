@@ -1,0 +1,31 @@
+#!/bin/sh /etc/rc.common
+
+START=96
+STOP=96
+
+shad_stop() {
+	rm /etc/dnsmasq.conf
+	cp /etc/wall/dnsmasq.conf.old  /etc/dnsmasq.conf
+	/etc/init.d/dnsmasq restart
+	[ "$?" = '0' ] && /etc/init.d/pdnsd stop
+	[ "$?" = '0' ] && /etc/init.d/shadowsocks stop
+}
+
+task_get() {
+	server_enable=`grep "option remote_enable '1'" /etc/config/shadowsocks`
+
+	if [ "$?" = '0' ]; then
+		rm /etc/dnsmasq.conf
+		cp /etc/wall/dnsmasq.conf  /etc/dnsmasq.conf
+		/etc/init.d/dnsmasq restart
+		[ "$?" = '0' ] && /etc/init.d/pdnsd restart
+		[ "$?" = '0' ] && /etc/init.d/shadowsocks restart
+		pidof ss-local > /dev/null
+		[ "$?" == '0' ] || shad_stop;
+	else
+		shad_stop;
+	fi
+}
+
+task_get;
+

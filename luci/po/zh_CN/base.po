@@ -485,7 +485,7 @@ msgstr "复位/刷机"
 msgid "update firmware"
 msgstr "教材/固件"
 
-msgid "Update"
+msgid "Backup / Restore"
 msgstr "备份/恢复"
 
 msgid "Backup file list"
@@ -1032,7 +1032,7 @@ msgid "Frame Bursting"
 msgstr "帧突发"
 
 msgid "Free"
-msgstr "内存状态"
+msgstr "空闲数"
 
 msgid "Free space"
 msgstr "空闲空间"
@@ -2020,10 +2020,10 @@ msgid "Reboot"
 msgstr "重启"
 
 msgid "Rebooting..."
-msgstr "重启中..."
+msgstr "设备重启中..."
 
 msgid "Reboots the operating system of your device"
-msgstr "重启路由器"
+msgstr "重启你的设备"
 
 msgid "Receive"
 msgstr "接收"

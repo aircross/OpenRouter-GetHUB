@@ -86,6 +86,9 @@ $(eval $(call application,webcam,webcam configuration module,\
 $(eval $(call application,xunlei,xunlei configuration module,\
 	 +PACKAGE_luci-app-xunlei:libc +wget))
 
+$(eval $(call application,wifidog,wifidog web module,\
+	 +PACKAGE_luci-app-wifidog:wifidog))
+
 $(eval $(call application,pdnsd,pdnsd configuration module,\
 	 +PACKAGE_luci-app-pdnsd:pdnsd))
 
