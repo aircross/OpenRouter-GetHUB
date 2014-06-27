@@ -1,0 +1,11 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@database[-1]
+	add ucitrack database
+	set ucitrack.@database[-1].init=database
+	commit ucitrack
+EOF
+
+rm -f /tmp/luci-indexcache
+exit 0

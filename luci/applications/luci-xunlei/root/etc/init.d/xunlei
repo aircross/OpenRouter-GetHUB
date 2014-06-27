@@ -14,7 +14,7 @@ start() {
         #limeng
         #[ -n "$device" ] || exit 1
         #grep "$device" /etc/mtab
-        bash /root/lmxl.sh
+        bash /usr/lmxl.sh
         [ "$?" == "0" ] || exit 2
         
 	rm -f /tmp/etc/thunder_mounts.cfg
@@ -29,7 +29,7 @@ start() {
 	ln -s "$path2" /tmp/etc/etm.cfg
 	ln -s "$path3" /tmp/etc/download.cfg
 	
-	[ "$up" -eq 1 ] && /root/xlup && /root/cfg
+	[ "$up" -eq 1 ] && /usr/xlup && /usr/cfg
 
 	[ "$enable" -eq 0 ] &&	exit 0
 

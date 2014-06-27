@@ -83,8 +83,11 @@ $(eval $(call application,DNS-Filter,DNS-Filter configuration module,\
 $(eval $(call application,webcam,webcam configuration module,\
 	 +PACKAGE_luci-app-webcam:webcam +mjpg-streamer))
 
+$(eval $(call application,database,database configuration module,\
+	 +PACKAGE_luci-app-database:php5 + php5-mod-gd +php5-mod-session +php5-mod-pdo +php5-mod-pdo-mysql +php5-mod-mysql +php5-mod-mcrypt +php5-mod-mbstring +php5-fastcgi +php5-cgi +php5-mod-xml +php5-mod-ctype +php5-mod-curl +php5-mod-exif +php5-mod-ftp +php5-mod-iconv +php5-mod-json +php5-mod-sockets +php5-mod-sqlite3 +php5-mod-tokenizer +php5-mod-zip +mysql-server +libncursesw +libncurses +libreadline +terminfo +uclibcxx +zlib +libmysqlclient +libmcrypt +libltdl +libmcrypt +nginx +spawn-fcgi +zoneinfo-core +zoneinfo-asia))
+
 $(eval $(call application,xunlei,xunlei configuration module,\
-	 +PACKAGE_luci-app-xunlei:libc +wget))
+	 +PACKAGE_luci-app-xunlei:libc +wget +bash))
 
 $(eval $(call application,wifidog,wifidog web module,\
 	 +PACKAGE_luci-app-wifidog:wifidog))

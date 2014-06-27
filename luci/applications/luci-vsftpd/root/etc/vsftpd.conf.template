@@ -14,6 +14,7 @@ anonymous_enable=|ANONYMOUS_ENABLE|
 anon_upload_enable=|ANON_UPLOAD_ENABLE|
 anon_mkdir_write_enable=|ANON_MKDIR_WRITE_ENABLE|
 anon_root=/mnt
+local_root=/
 
 local_enable=|LOACL_ENABLE|
 write_enable=|WRITE_ENABLE|

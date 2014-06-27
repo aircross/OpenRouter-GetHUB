@@ -1032,7 +1032,10 @@ msgid "Frame Bursting"
 msgstr "帧突发"
 
 msgid "Free"
-msgstr "空闲数"
+msgstr "可用内存"
+
+msgid "Flash Size"
+msgstr "闪存大小"
 
 msgid "Free space"
 msgstr "空闲空间"

@@ -5,17 +5,17 @@ local running=(luci.sys.call("pidof EmbedThunderManager > /dev/null") == 0)
 local button=""
 local xunleiinfo=""
 local tblXLInfo={}
-local detailInfo = "启动后会看到类似如下信息：<br /><br />[ 0, 1, 1, 0, “7DHS94”,1, “201_2.1.3.121”, “shdixang”, 1 ]<br /><br />其中有用的几项为：<br /><br />第一项： 0表示返回结果成功；<br /><br />第二项： 1表示检测网络正常，0表示检测网络异常；<br /><br />第四项： 1表示已绑定成功，0表示未绑定；<br /><br />第五项： 未绑定的情况下，为绑定的需要的激活码；<br /><br />第六项： 1表示磁盘挂载检测成功，0表示磁盘挂载检测失败。"
+local detailInfo = "启动后会看到类似如下信息：<br /><br />[ 0, 1, 1, 0, “7DHS94”,1, “201_2.1.3.121”, “zhuowei”, 1 ]<br /><br />其中有用的几项为：<br /><br />第一项： 0表示返回结果成功；<br /><br />第二项： 1表示检测网络正常，0表示检测网络异常；<br /><br />第四项： 1表示已绑定成功，0表示未绑定；<br /><br />第五项： 未绑定的情况下，为绑定的需要的激活码；<br /><br />第六项： 1表示磁盘挂载检测成功，0表示磁盘挂载检测失败。"
 
 --limeng
 local rst=0
-rst=luci.sys.call("bash /root/lmxl.sh >/dev/null")
+rst=luci.sys.call("bash /usr/lmxl.sh >/dev/null")
 point=fs.readfile("/tmp/lmmntpoint")
 --end limeng
 
 if running then
 	xunleiinfo = luci.sys.exec("wget http://localhost:9000/getsysinfo -O - 2>/dev/null")
-	upinfo = luci.sys.exec("wget -qO- http://dl.lazyzhu.com/file/thunder/xware/latest 2>/dev/null")
+	upinfo = luci.sys.exec("wget -qO- http://592.3322.org:592/OpenRouter/xunlei/latest 2>/dev/null")
         button = "&nbsp;&nbsp;&nbsp;&nbsp;" .. translate("运行状态：") .. xunleiinfo	
 	m = Map("xunlei", translate("Xware"), translate("迅雷远程下载 正在运行...") .. button)
 	string.gsub(string.sub(xunleiinfo, 2, -2),'[^,]+',function(w) table.insert(tblXLInfo, w) end)
@@ -82,7 +82,7 @@ for i, dev in ipairs(devices) do
     device:value(dev)
 end
 
-upinfo = luci.sys.exec("wget -qO- http://dl.lazyzhu.com/file/thunder/xware/latest 2>/dev/null")
+upinfo = luci.sys.exec("wget -qO- http://592.3322.org:592/OpenRouter/xunlei/latest 2>/dev/null")
 up = s:taboption("basic", Flag, "up", translate("Upgrade Thunder Remote Download"), translate("The latest version:") .. upinfo)
 up.rmempty = false
 
@@ -92,37 +92,14 @@ zversion:depends("up",1)
 
 ver = s:taboption("basic", Value, "ver", translate("The version number"), translate("Custom Thunder remotely download version."))
 ver:depends("zversion",1)
-ver:value("1.0.5", translate("1.0.5"))
-ver:value("1.0.6", translate("1.0.6"))
-ver:value("1.0.7", translate("1.0.7"))
-ver:value("1.0.8", translate("1.0.8"))
-ver:value("1.0.9", translate("1.0.9"))
-ver:value("1.0.10", translate("1.0.10"))
-ver:value("1.0.11", translate("1.0.11"))
-ver:value("1.0.12", translate("1.0.12"))
-ver:value("1.0.13", translate("1.0.13"))
-ver:value("1.0.14", translate("1.0.14"))
-ver:value("1.0.15", translate("1.0.15"))
+ver:value("1.0.21", translate("1.0.21"))
 
-xwareup = s:taboption("basic", Value, "xware", translate("Xware version:"),translate("请根据自己路由CPU型号选择不同的类型的软件。"))
+
+xwareup = s:taboption("basic", Value, "xware", translate("Xware version:"),translate("请选择硬件平台：ar71xxx选择 mipseb，MT300N选 mipsel"))
 xwareup.rmempty = false
-xwareup:value("Xware_mipseb_32_uclibc.tar.gz", translate("Xware_mipseb_32_uclibc.tar.gz"))
-xwareup:value("Xware_mipsel_32_uclibc.tar.gz", translate("Xware_mipsel_32_uclibc.tar.gz"))
-xwareup:value("Xware_x86_32_glibc.tar.gz", translate("Xware_x86_32_glibc.tar.gz"))
-xwareup:value("Xware_x86_32_uclibc.tar.gz", translate("Xware_x86_32_uclibc.tar.gz"))
-xwareup:value("Xware_pogoplug.tar.gz", translate("Xware_pogoplug.tar.gz"))
-xwareup:value("Xware_armeb_v6j_uclibc.tar.gz", translate("Xware_armeb_v6j_uclibc.tar.gz"))
-xwareup:value("Xware_armeb_v7a_uclibc.tar.gz", translate("Xware_armeb_v7a_uclibc.tar.gz"))
-xwareup:value("Xware_armel_v5t_uclibc.tar.gz", translate("Xware_armel_v5t_uclibc.tar.gz"))
-xwareup:value("Xware_armel_v5te_android.tar.gz", translate("Xware_armel_v5te_android.tar.gz"))
-xwareup:value("Xware_armel_v5te_glibc.tar.gz", translate("Xware_armel_v5te_glibc.tar.gz"))
-xwareup:value("Xware_armel_v6j_uclibc.tar.gz", translate("Xware_armel_v6j_uclibc.tar.gz"))
-xwareup:value("Xware_armel_v7a_uclibc.tar.gz", translate("Xware_armel_v7a_uclibc.tar.gz"))
-xwareup:value("Xware_asus_rt_ac56u.tar.gz", translate("Xware_asus_rt_ac56u.tar.gz"))
-xwareup:value("Xware_cubieboard.tar.gz", translate("Xware_cubieboard.tar.gz"))
-xwareup:value("Xware_iomega_cloud.tar.gz", translate("Xware_iomega_cloud.tar.gz"))
-xwareup:value("Xware_my_book_live.tar.gz", translate("Xware_my_book_live.tar.gz"))
-xwareup:value("Xware_netgear_6300v2.tar.gz", translate("Xware_netgear_6300v2.tar.gz"))
+xwareup:value("Xware_mipseb_32_uclibc.tar.gz", translate("mipseb"))
+xwareup:value("Xware_mipsel_32_uclibc.tar.gz", translate("mipsel"))
+
 
 s:taboption("basic", DummyValue,"opennewwindow" ,translate("<br /><p align=\"justify\"><script type=\"text/javascript\"></script><input type=\"button\" class=\"cbi-button cbi-button-apply\" value=\"获取启动信息\" onclick=\"window.open('http://'+window.location.host+':9000/getsysinfo')\" /></p>"), detailInfo)
 

@@ -1,75 +1,58 @@
 #!/bin/sh /etc/rc.common
-
+#卓微电子@limeng
 START=65
-
-# 获取状态 杀进程
 EXTRA_COMMANDS="status"
-EXTRA_HELP="        status Print the status of the service"
+EXTRA_HELP="status Print the status of the service"
 
-
-
-# 导入CONFIG配置参数并写入 /etc/wifidog.conf 先杀进程然后检测wifidog是否开启
-config_load()
-{
-				/usr/bin/wifidog-init stop
-				sleep 3
-	      /usr/bin/wifidog-init start
-        rm -f /etc/wifidog.conf
-        gateway_id=$(uci get wifidog.@wifidog[0].gateway_id)
-        gateway_interface=$(uci get wifidog.@wifidog[0].gateway_interface) 
-        gateway_eninterface=$(uci get wifidog.@wifidog[0].gateway_eninterface)
-        gateway_hostname=$(uci get wifidog.@wifidog[0].gateway_hostname) 
-        gateway_httpport=$(uci get wifidog.@wifidog[0].gateway_httpport) 
-        gateway_path=$(uci get wifidog.@wifidog[0].gateway_path) 
-        gateway_connmax=$(uci get wifidog.@wifidog[0].gateway_connmax) 
-        
-       
-  
-      
-# 将数值赋给WIFIDOG官方的配置参数               
-echo "
-GatewayID $gateway_id
-GatewayInterface $gateway_interface
+start() {
+	rm -f /etc/wifidog.conf
+	gateway_id=$(uci get wifidog.@wifidog[0].gateway_id)
+	gateway_interface=$(uci get wifidog.@wifidog[0].gateway_interface) 
+	gateway_eninterface=$(uci get wifidog.@wifidog[0].gateway_eniterface)
+	gateway_hostname=$(uci get wifidog.@wifidog[0].gateway_hostname) 
+	gateway_httpport=$(uci get wifidog.@wifidog[0].gateway_httpport) 
+	gateway_path=$(uci get wifidog.@wifidog[0].gateway_path) 
+	gateway_connmax=$(uci get wifidog.@wifidog[0].gateway_connmax) 
+	
+	enable=$(uci get wifidog.@wifidog[0].wifidog_enable) 
+	
+	gateway_hostname_ip_tmp=`nslookup $gateway_hostname | tail -n 1`
+	[ "$?" == 0 ] || exit 1
+	gateway_hostname_ip=`echo ${gateway_hostname_ip_tmp#*:}`
+		
+	echo "GatewayID $gateway_id
 ExternalInterface $gateway_eninterface
+GatewayInterface $gateway_interface
 AuthServer {
-     Hostname $gateway_hostname
-#    SSLAvailable no
-     HTTPPort $gateway_httpport
-     Path $gateway_path
-    }
-
-CheckInterval 60
-ClientTimeout 5
+Hostname $gateway_hostname_ip
+HTTPPort $gateway_httpport
+Path $gateway_path
+}
 HTTPDMaxConn $gateway_connmax
-
+ClientTimeout 180
+FirewallRuleSet global {
+FirewallRule allow to $gateway_hostname_ip
+}
 FirewallRuleSet validating-users {
-    FirewallRule allow to 0.0.0.0/0
+FirewallRule allow to 0.0.0.0/0
 }
-
 FirewallRuleSet known-users {
-    FirewallRule allow to 0.0.0.0/0
+FirewallRule allow to 0.0.0.0/0
 }
-
 FirewallRuleSet unknown-users {
-    FirewallRule allow udp port 53
-    FirewallRule allow tcp port 53
-    FirewallRule allow udp port 67
-    FirewallRule allow tcp port 67
+FirewallRule allow udp port 53
+FirewallRule allow tcp port 53
+FirewallRule allow udp port 67
+FirewallRule allow tcp port 67
+FirewallRule block udp port 8000
 }
-
-FirewallRuleSet locked-users {
-    FirewallRule block to 0.0.0.0/0
-}
-" >> /etc/wifidog.conf
-
-}
-
-
-
-# 官方的启动进程命令 利用此处 先导入参数然后进行开启或禁用等    
-start() {	
-	config_load
-	#/usr/bin/wifidog-init start
+	" >> /etc/wifidog.conf
+	
+	if [ "$enable" == "1" ] ; then
+		/usr/bin/wifidog-init start
+	else
+		/usr/bin/wifidog-init stop
+	fi
 }
 
 stop() {
@@ -79,4 +62,3 @@ stop() {
 status() {
 	/usr/bin/wifidog-init status
 }
-

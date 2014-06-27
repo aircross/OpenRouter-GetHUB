@@ -1,0 +1,62 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "wifidog"
+msgstr "配置wifidog"
+
+msgid "wifidog not start"
+msgstr "未运行"
+
+msgid "wifidog：running........."
+msgstr "wifidog 运行中......"
+
+msgid "wifidog-web"
+msgstr "wifidog可视化管理界面"
+
+msgid "wifidog config"
+msgstr "配置"
+
+msgid "run wifidog"
+msgstr "启用"
+
+msgid "run or shuutdown wifidog"
+msgstr "启用或者禁用wifidog"
+
+msgid "GatewayID"
+msgstr "网关ID号"
+
+msgid "id（GatewayID）"
+msgstr "你的网关ID，一般由服务商为你提供"
+
+msgid "lan"
+msgstr "认证端口"
+
+msgid "wan"
+msgstr "wan端口"
+
+msgid "br-lan"
+msgstr "需要进行认证的路由器端口（lan口）一般为br-lan或者ath0等，可以使用ifconfig命令查看"
+
+msgid "eth1/eth2"
+msgstr "路由器的wan口，一般为eth1、eth2等等，可以使用ifconfig命令查看"
+
+msgid "server ip"
+msgstr "服务器IP"
+
+msgid "server prot"
+msgstr "服务器端口"
+
+msgid "url"
+msgstr "路径"
+
+msgid "/wifidog/"
+msgstr "服务器端认证程序路径"
+
+msgid "max usr"
+msgstr "最大连接用户数"
+
+msgid "Dog"
+msgstr "进程守护"
+
+msgid "reboot wifidog"
+msgstr "当wifidog意外终止时可以自动重启wifidog"
