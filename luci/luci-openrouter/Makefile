@@ -89,6 +89,9 @@ $(eval $(call application,xunlei,xunlei configuration module,\
 $(eval $(call application,wifidog,wifidog web module,\
 	 +PACKAGE_luci-app-wifidog:wifidog))
 
+$(eval $(call application,database,database configuration module,\
+	 +PACKAGE_luci-app-database:database))
+
 $(eval $(call application,pdnsd,pdnsd configuration module,\
 	 +PACKAGE_luci-app-pdnsd:pdnsd))
 
