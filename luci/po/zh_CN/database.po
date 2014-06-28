@@ -1,0 +1,39 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+msgid "database"
+msgstr "服务器配置"
+
+msgid "database is running..."
+msgstr "服务运行中....."
+
+msgid "select action"
+msgstr "操作"
+
+msgid "openrouter port"
+msgstr "管理界面端口"
+
+msgid "Device mount point for database "
+msgstr "选择存储设备挂载路径"
+
+msgid "user passwd"
+msgstr "管理员密码"
+
+msgid "default user name: root; if passwd is empty, default passwd is: openrouter "
+msgstr "默认用户名为root，此密码为数据库管理员密码，如果留空为openrouter，建议修改掉"
+
+msgid "database name"
+msgstr "数据库名"
+
+msgid "if database name is empty, default database name is: openrouter "
+msgstr "如果留空系统默认创建名为openrouter的数据库"
+
+msgid "Download Configuration"
+msgstr "下载配置"
+
+msgid "Download Configuration"
+msgstr "下载配置"
+
+msgid "Download Configuration"
+msgstr "下载配置"
+

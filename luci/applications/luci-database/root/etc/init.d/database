@@ -1,0 +1,74 @@
+#!/bin/sh /etc/rc.common
+#卓微科技@limeng
+
+START=99
+
+start() {
+	touch /tmp/database.start
+	select=$(uci get database.config.select)
+	user_name="root"
+	passwd=$(uci get database.config.passwd)
+	database_name=$(uci get database.config.database_name)
+
+	nginx_port=$(uci get database.config.nginx_port)
+	uhttpd_port=$(uci get database.config.uhttpd_port)
+	
+	device=$(uci get database.config.device)
+	point="`mount | grep "$device" | awk '{print $3}'`"
+	
+	[ "$passed" != "" ] || passwd="openrouter"
+	[ "$database_name" != "" ] || database_name="openrouter"
+	
+	if [ "$select" == "init" ]; then
+		sed -r -i "s#(.*)(/mnt/sd..)(.*)#\1$point\3#g" /etc/php.ini  
+		sed -r -i "s#(.*)(/mnt/sd..)(.*)#\1$point\3#g" /etc/my.cnf
+		sed -r -i "s#(.*)(/mnt/sd..)(.*)#\1$point\3#g" /etc/nginx/nginx.conf
+		
+		sed -r -i "s#(.*)(/dev/sd..)(.*)#\1$point\3#g" /etc/php.ini  
+		sed -r -i "s#(.*)(/dev/sd..)(.*)#\1$point\3#g" /etc/my.cnf
+		sed -r -i "s#(.*)(/dev/sd..)(.*)#\1$point\3#g" /etc/nginx/nginx.conf
+	
+		if [ ! -d $point/data/mysql ]; then
+			/etc/init.d/mysqld restart
+			sleep 2;
+			mkdir -p $point/data $point/data/mysql $point/data/tmp
+			/usr/bin/mysql_install_db --force
+			/etc/init.d/mysqld restart
+			sleep 3;
+			/usr/bin/mysqladmin -u $user_name password $passwd
+			db=`mysql -u $user_name -p$passwd <<EOF
+create database $database_name
+\g
+exit
+EOF`
+			echo $db
+		fi
+	elif [ "$select" == "start" ]; then
+		sed -r -i "s@(.*)(listen_http)(.*)(#limeng)@\1\2 0.0.0.0:$nginx_port \4@g" /etc/config/uhttpd
+		sed -r -i "s@(.*)(listen)(.*)(;#limeng)@\1\2 $uhttpd_port \4@g" /etc/nginx/nginx.conf
+                /etc/init.d/nginx stop
+		/etc/init.d/mysqld restart
+		/usr/bin/spawn-fcgi -a 127.0.0.1 -p 9000 -C 2 -f /usr/bin/php-cgi
+		/etc/init.d/nginx start
+		/etc/init.d/uhttpd restart
+	elif [ "$select" == "stop" ]; then
+		stop;
+	elif [ "$select" == "del" ]; then
+		rm -rf $point/data/
+	fi
+}
+
+stop() {
+	touch /tmp/database.stop
+	/etc/init.d/nginx stop
+	/etc/init.d/mysqld stop
+	pid_cgi=`pidof php-cgi`
+	kill -9 $pid_cgi
+}
+
+restart() {
+	stop;
+	sleep 1;
+	start;
+}
+

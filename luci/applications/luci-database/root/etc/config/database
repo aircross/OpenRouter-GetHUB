@@ -1,7 +1,12 @@
 
 config database 'config'
 	option usr_name 'root'
-	option device '/dev/sda1'
 	option enable '1'
 	option server_start '1'
+	option device '/dev/sda1'
+	option route_port '90'
+	option server_port '80'
+	option select 'start'
+	option nginx_port '90'
+	option uhttpd_port '80'
 
